@@ -1,7 +1,7 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { ArrowLeft, CalendarDays } from "lucide-react-native";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
     ActivityIndicator,
     Alert,
@@ -109,25 +109,31 @@ export default function DetailsScreen() {
     };
   }, [id]);
 
-  // Load comments
-  const loadComments = useCallback(async () => {
-    if (!id) return;
-
-    setCommentsLoading(true);
-
-    try {
-      const data = await getStoryComments(id);
-      setComments(data);
-    } catch (err) {
-      console.error("Comments loading error:", err);
-    } finally {
-      setCommentsLoading(false);
-    }
-  }, [id]);
-
   useEffect(() => {
-    void loadComments();
-  }, [loadComments]);
+    let active = true;
+
+    const fetchComments = async () => {
+      try {
+        const data = await getStoryComments(id);
+
+        if (active) {
+          setComments(data);
+        }
+      } catch (err) {
+        console.error("Comments loading error:", err);
+      } finally {
+        if (active) {
+          setCommentsLoading(false);
+        }
+      }
+    };
+
+    void fetchComments();
+
+    return () => {
+      active = false;
+    };
+  }, [id]);
 
   // Submit comment
   const handleAddComment = async () => {

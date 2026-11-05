@@ -207,7 +207,7 @@ export default function CreateScreen() {
               </Text>
 
               <Text className="mt-1 text-xs leading-5" style={{ color: MUTED }}>
-                Don't worry about perfection. Just let your imagination flow.
+                Dont worry about perfection. Just let your imagination flow.
               </Text>
             </View>
           </View>
@@ -494,7 +494,7 @@ export default function CreateScreen() {
               </View>
 
               <Text className="text-[10px]" style={{ color: MUTED }}>
-                {story.length.toLocaleString()}/10,000
+                {story.length.toLocaleString()}/100000
               </Text>
             </View>
 
@@ -505,8 +505,9 @@ export default function CreateScreen() {
               placeholderTextColor="#77718D"
               multiline
               textAlignVertical="top"
-              maxLength={10000}
-              className="min-h-[250px] px-4 py-4 text-sm leading-7 text-white"
+
+              maxLength={100000}
+              className="min-h-[250px] max-h-[400px] px-4 py-4 text-sm leading-7 text-white"
             />
           </View>
 

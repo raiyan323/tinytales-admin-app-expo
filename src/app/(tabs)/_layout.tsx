@@ -6,7 +6,6 @@ const PURPLE = "#A78BFA";
 const MUTED = "#AAA3C2";
 const BAR = "#1D1833";
 const BORDER = "#332A4B";
-const ACTIVE_BG = "#382957";
 
 export default function TabLayout() {
   return (

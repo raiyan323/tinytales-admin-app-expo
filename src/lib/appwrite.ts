@@ -1,14 +1,13 @@
 import { Client, Databases, ID, Query } from "react-native-appwrite";
 
-const endpoint = process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT!;
-const projectId = process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID!;
+const endpoint = "https://fra.cloud.appwrite.io/v1";
+const projectId = "6ae2054800384dc9b0b1";
 
-export const databaseId = process.env.EXPO_PUBLIC_APPWRITE_DATABASE_ID!;
+export const databaseId = "6ae205d500304dff88b4";
 
-export const collectionId = process.env.EXPO_PUBLIC_APPWRITE_COLLECTION_ID!;
+export const collectionId = "6ae205ec001a5dcb085c";
 
-const commentsCollectionId =
-  process.env.EXPO_PUBLIC_APPWRITE_COMMENTS_COLLECTION_ID!;
+const commentsCollectionId = "6ae2e7990007ec08681b";
 
 const client = new Client().setEndpoint(endpoint).setProject(projectId);
 

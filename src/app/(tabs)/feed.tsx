@@ -202,7 +202,7 @@ export default function FeedScreen() {
       >
         {/* Loading */}
         {loading ? (
-          <View className="items-center justify-center py-14">
+          <View className="fixed items-center justify-center py-14">
             <View className="h-16 w-16 items-center justify-center rounded-[22px] bg-[#30234F]">
               <ActivityIndicator size="large" color={PURPLE} />
             </View>
@@ -227,7 +227,7 @@ export default function FeedScreen() {
             <Text className="text-3xl">📚</Text>
 
             <Text className="mt-3 text-lg font-extrabold text-white">
-              Couldn't open the feed
+              Couldnt open the feed
             </Text>
 
             <Text className="mt-2 text-sm leading-6 text-[#FDA4AF]">
@@ -421,7 +421,7 @@ export default function FeedScreen() {
             </View>
 
             <Text className="mt-3 text-sm font-extrabold text-white">
-              That's the magic of TinyTales
+              Thats the magic of TinyTales
             </Text>
 
             <Text className="mt-1 text-xs" style={{ color: MUTED }}>

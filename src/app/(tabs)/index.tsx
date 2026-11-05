@@ -137,8 +137,34 @@ export default function HomeScreen() {
   }, []);
 
   useEffect(() => {
-    void loadStories();
-  }, [loadStories]);
+    let active = true;
+
+    const fetchStories = async () => {
+      try {
+        const data = await getStories();
+
+        if (active) {
+          setStories(data);
+        }
+      } catch (err) {
+        console.error("Stories loading error:", err);
+
+        if (active) {
+          setError("Couldn't load stories.");
+        }
+      } finally {
+        if (active) {
+          setLoading(false);
+        }
+      }
+    };
+
+    void fetchStories();
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   // Refresh button
   const handleRefresh = () => {
