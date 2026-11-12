@@ -1,14 +1,17 @@
 import { Client, Databases, ID, Query } from "react-native-appwrite";
 
-const endpoint = "https://fra.cloud.appwrite.io/v1";
-const projectId = "6ae2054800384dc9b0b1";
+// Environment variables
+const endpoint = process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT!;
+const projectId = process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID!;
 
-export const databaseId = "6ae205d500304dff88b4";
+export const databaseId = process.env.EXPO_PUBLIC_APPWRITE_DATABASE_ID!;
 
-export const collectionId = "6ae205ec001a5dcb085c";
+export const collectionId = process.env.EXPO_PUBLIC_APPWRITE_COLLECTION_ID!;
 
-const commentsCollectionId = "6ae2e7990007ec08681b";
+const commentsCollectionId =
+  process.env.EXPO_PUBLIC_APPWRITE_COMMENTS_COLLECTION_ID!;
 
+// Appwrite client
 const client = new Client().setEndpoint(endpoint).setProject(projectId);
 
 const databases = new Databases(client);
@@ -35,8 +38,7 @@ export type StoryComment = {
   createdAt: string;
 };
 
-// for create stories
-
+// Create story
 export async function createStory(data: {
   title: string;
   category: string;
@@ -48,14 +50,13 @@ export async function createStory(data: {
 }) {
   return databases.createDocument({
     databaseId,
-    collectionId: collectionId,
+    collectionId,
     documentId: ID.unique(),
     data,
   });
 }
 
-// update and delete
-
+// Update story
 type StoryUpdate = Partial<
   Pick<
     Story,
@@ -69,7 +70,6 @@ type StoryUpdate = Partial<
   >
 >;
 
-// Update an existing story
 export async function updateStory(
   id: string,
   data: StoryUpdate,
@@ -84,23 +84,13 @@ export async function updateStory(
   return result as unknown as Story;
 }
 
-// Delete a story
+// Delete story
 export async function deleteStory(id: string): Promise<void> {
   await databases.deleteDocument({
     databaseId,
     collectionId,
     documentId: id,
   });
-}
-
-export async function getStoryCommentCount(storyId: string): Promise<number> {
-  const result = await databases.listDocuments({
-    databaseId,
-    collectionId: commentsCollectionId,
-    queries: [Query.equal("storyId", storyId), Query.limit(1)],
-  });
-
-  return result.total;
 }
 
 // Get all stories
@@ -125,7 +115,18 @@ export async function getStory(id: string): Promise<Story> {
   return result as unknown as Story;
 }
 
-// Get comments for a story
+// Get comment count
+export async function getStoryCommentCount(storyId: string): Promise<number> {
+  const result = await databases.listDocuments({
+    databaseId,
+    collectionId: commentsCollectionId,
+    queries: [Query.equal("storyId", storyId), Query.limit(1)],
+  });
+
+  return result.total;
+}
+
+// Get comments
 export async function getStoryComments(
   storyId: string,
 ): Promise<StoryComment[]> {
@@ -142,7 +143,7 @@ export async function getStoryComments(
   return result.documents as unknown as StoryComment[];
 }
 
-// Add a comment
+// Add comment
 export async function addStoryComment(
   storyId: string,
   text: string,

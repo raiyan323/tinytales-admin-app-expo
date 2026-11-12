@@ -2,12 +2,12 @@ import { useRouter } from "expo-router";
 import { Clock, RefreshCw } from "lucide-react-native";
 import { useCallback, useEffect, useState } from "react";
 import {
-    ActivityIndicator,
-    Image,
-    Pressable,
-    ScrollView,
-    Text,
-    View,
+  ActivityIndicator,
+  Image,
+  Pressable,
+  ScrollView,
+  Text,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -137,34 +137,12 @@ export default function HomeScreen() {
   }, []);
 
   useEffect(() => {
-    let active = true;
+    const timer = setTimeout(() => {
+      void loadStories();
+    }, 0);
 
-    const fetchStories = async () => {
-      try {
-        const data = await getStories();
-
-        if (active) {
-          setStories(data);
-        }
-      } catch (err) {
-        console.error("Stories loading error:", err);
-
-        if (active) {
-          setError("Couldn't load stories.");
-        }
-      } finally {
-        if (active) {
-          setLoading(false);
-        }
-      }
-    };
-
-    void fetchStories();
-
-    return () => {
-      active = false;
-    };
-  }, []);
+    return () => clearTimeout(timer);
+  }, [loadStories]);
 
   // Refresh button
   const handleRefresh = () => {

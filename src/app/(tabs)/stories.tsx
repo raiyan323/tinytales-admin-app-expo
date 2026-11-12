@@ -2,22 +2,22 @@ import { useFocusEffect, useRouter } from "expo-router";
 import { BookOpen, Plus, Search } from "lucide-react-native";
 import { useCallback, useState } from "react";
 import {
-    ActivityIndicator,
-    FlatList,
-    Image,
-    Pressable,
-    Text,
-    TextInput,
-    View,
+  ActivityIndicator,
+  FlatList,
+  Image,
+  Pressable,
+  Text,
+  TextInput,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import StoryActions from "../../components/StoryActions";
 
 import {
-    getStories,
-    getStoryCommentCount,
-    type Story,
+  getStories,
+  getStoryCommentCount,
+  type Story,
 } from "../../lib/appwrite";
 
 const BG = "#100D20";
